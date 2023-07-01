@@ -85,21 +85,19 @@ resource "azurerm_application_gateway" "appgateway" {
       backend_address_pool_name     = "sqlapp-pool"
       backend_http_settings_name    = "HTTPSetting"
       paths = [
-        "/sqlapp",
+        "/applicationsql",
       ]
   }
      }
      probe {
-       name = "health"
-      #  host = "sqlapp-pool"
+       name = "health" 
        protocol = "Http"
-      #  port = "80"
-       path = "/sqlapp"
+       path = "/applicationsql"
        pick_host_name_from_backend_http_settings = true
        interval = "30"
        timeout = "30"
        unhealthy_threshold = "3"
-      #  backend_http_settings_name = "HTTPSetting"
+       depends_on = [backend_http_settings.HTTPSetting]
      }
     
   }
