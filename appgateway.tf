@@ -90,10 +90,11 @@ resource "azurerm_application_gateway" "appgateway" {
   }
      }
      probe {
-       name = "health" 
+       name = "health"
+       host= "applicationsql" 
        protocol = "Http"
        path = "/applicationsql"
-       pick_host_name_from_backend_http_settings = true
+       pick_host_name_from_backend_http_settings = false
        interval = "30"
        timeout = "30"
        unhealthy_threshold = "3"
